@@ -1,0 +1,12 @@
+apiVersion: ldap.tokenservice.com/v1alpha1
+kind: Ldapconfig
+metadata:
+  labels:
+    app.kubernetes.io/name: ldapconfig
+    app.kubernetes.io/instance: ldapconfig-sample
+    app.kubernetes.io/part-of: webhook-operator
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: webhook-operator
+  name: ldapconfig-sample
+spec:
+  # TODO(user): Add fields here

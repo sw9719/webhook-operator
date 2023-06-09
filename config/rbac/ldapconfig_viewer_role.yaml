@@ -1,0 +1,27 @@
+# permissions for end users to view ldapconfigs.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: clusterrole
+    app.kubernetes.io/instance: ldapconfig-viewer-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/created-by: webhook-operator
+    app.kubernetes.io/part-of: webhook-operator
+    app.kubernetes.io/managed-by: kustomize
+  name: ldapconfig-viewer-role
+rules:
+- apiGroups:
+  - ldap.tokenservice.com
+  resources:
+  - ldapconfigs
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ldap.tokenservice.com
+  resources:
+  - ldapconfigs/status
+  verbs:
+  - get

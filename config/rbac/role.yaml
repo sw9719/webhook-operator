@@ -1,0 +1,33 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  creationTimestamp: null
+  name: manager-role
+rules:
+- apiGroups:
+  - ldap.tokenservice.com
+  resources:
+  - ldapconfigs
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - ldap.tokenservice.com
+  resources:
+  - ldapconfigs/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - ldap.tokenservice.com
+  resources:
+  - ldapconfigs/status
+  verbs:
+  - get
+  - patch
+  - update
