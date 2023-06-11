@@ -1,8 +1,16 @@
 # webhook-operator
-// This is a simple operator designed to configure and run 389ds Directory server as a container. This is a part of a bigger project that implements webhook-token feature to implement authentication
+This is a simple operator designed to configure and run 389ds Directory server as a container. This is a part of a bigger project that implements webhook-token feature to implement authentication
 
 ## Description
-// The LDAP opeator will run and configure 389 ds container by reading the ldapconfig crd. It currently implements limited features but I am planning to add many more in the future, including injecting large data using jobs.
+The LDAP opeator will run and configure 389 ds container by reading the ldapconfig crd. It currently implements limited features but I am planning to add many more in the future, including injecting large data using jobs.
+
+### TODO
+- Move the reconcile code to different packages to keep reconcile function small and simple.
+- Enable ingesting data using jobs
+- Enable data replication configuration
+- Implement ACLs through ldapconfig
+- Allow modifying service for the 389ds deployment
+- Add support for different types of volume(Currently only hostpath is supported)
 
 ## Getting Started
 You’ll need a Kubernetes cluster to run against. You can use [KIND](https://sigs.k8s.io/kind) to get a local cluster for testing, or run against a remote cluster.
