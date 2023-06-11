@@ -38,13 +38,69 @@ spec:
               config:
                 description: config defines the configuration of ldap service
                 properties:
+                  allowAnonymous:
+                    default: true
+                    description: allow anonymous binds
+                    type: boolean
+                  backendname:
+                    description: backend name to use when creating backend
+                    type: string
                   basedn:
+                    description: basedn specified the DN of the root entry
                     type: string
-                  instance:
+                  extendedConfig:
+                    description: extended config allows allows adding custom schema.
+                      This is usefull for adding custom objectclasses and attributes.
+                      It follows the same format as 99user.ldif file Set the value
+                      of this parameter to configmap containing the file contents
+                      in the same namespace. The key should be '99user.ldif'
                     type: string
+                  loglevel:
+                    description: loglevel for the container logs
+                    type: string
+                  password:
+                    description: Password to use for cn=Directory Manager
+                    type: string
+                  reindex:
+                    description: Option to perfom re-indexing during startup
+                    type: boolean
+                  storage:
+                    description: Storage options for ldap for data persistence
+                    properties:
+                      class:
+                        description: Class defines the type of kubernetes storage
+                          to use. This option defines the logic of how operator parses
+                          the storage options
+                        type: string
+                      hostpath:
+                        type: string
+                    required:
+                    - class
+                    - hostpath
+                    type: object
+                  tls:
+                    description: LDAP configuration related to tls
+                    properties:
+                      ca:
+                        description: name of the configmap containing ca bundle to
+                          use
+                        type: string
+                      keycert:
+                        description: name of the secret containing the server key
+                          to use // +kubebuilder:validation:Optional
+                        type: string
+                      requiresslbinds:
+                        default: false
+                        description: require secure binds or not
+                        type: boolean
+                    required:
+                    - keycert
+                    - requiresslbinds
+                    type: object
                 required:
+                - backendname
                 - basedn
-                - instance
+                - password
                 type: object
             required:
             - config

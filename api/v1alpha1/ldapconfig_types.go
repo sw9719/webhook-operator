@@ -23,9 +23,56 @@ import (
 // EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
 // NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
 
+type tlscfg struct {
+	// name of the secret containing the server key to use
+	// // +kubebuilder:validation:Optional
+	KeyCert string `json:"keycert"`
+	// name of the configmap containing ca bundle to use
+	// +kubebuilder:validation:Optional
+	Ca string `json:"ca"`
+	// require secure binds or not
+	// +kubebuilder:default:=false
+	RequireSSlBinds bool `json:"requiresslbinds"`
+}
+
+type storage struct {
+	// Class defines the type of kubernetes storage to use. This option defines the logic of how operator parses the storage options
+	Class    string `json:"class"`
+	HostPath string `json:"hostpath"`
+}
+
 type Cfg struct {
-	Basedn   string `json:"basedn"`
-	Instance string `json:"instance"`
+	// basedn specified the DN of the root entry
+	// +kubebuilder:validation:Required
+	Basedn string `json:"basedn"`
+	// backend name to use when creating backend
+	// +kubebuilder:validation:Required
+	Backendname string `json:"backendname"`
+	// Password to use for cn=Directory Manager
+	// +kubebuilder:validation:Required
+	Password string `json:"password"`
+	// LDAP configuration related to tls
+	// +kubebuilder:validation:Optional
+	Tls tlscfg `json:"tls"`
+	// Option to perfom re-indexing during startup
+	// +kubebuilder:validation:Optional
+	Reindex bool `json:"reindex"`
+	// loglevel for the container logs
+	// +kubebuilder:validation:Optional
+	Loglevel string `json:"loglevel"`
+	// Storage options for ldap for data persistence
+	// +kubebuilder:validation:Optional
+	Stg storage `json:"storage"`
+	// allow anonymous binds
+	// +kubebuilder:validation:Optional
+	// +kubebuilder:default:=true
+	Allowanonymous bool `json:"allowAnonymous"`
+	// extended config allows allows adding custom schema. This is usefull for adding
+	// custom objectclasses and attributes. It follows the same format as 99user.ldif file
+	// Set the value of this parameter to configmap containing the file contents in the
+	// same namespace. The key should be '99user.ldif'
+	// +kubebuilder:validation:Optional
+	ExtendedConfig string `json:"extendedConfig"`
 }
 
 // LdapconfigSpec defines the desired state of Ldapconfig
