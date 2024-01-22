@@ -1,5 +1,5 @@
 # webhook-operator
-This is a simple operator designed to configure and run 389ds Directory server as a container. This is a part of a bigger project that implements webhook-token feature to implement authentication
+This is a simple operator designed to configure and run 389ds Directory server as a container. This is a part of a bigger project that implements webhook-token feature to implement custom authentication in Kubernetes
 
 ## Description
 The LDAP opeator will run and configure 389 ds container by reading the ldapconfig crd. It currently implements limited features but I am planning to add many more in the future, including injecting large data using jobs.
